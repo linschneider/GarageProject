@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GarageLogic
+namespace Ex03.GarageLogic
 {
-    public class ElectricCar : ElectricVehicle , Car
-    { 
+    public class ElectricCar : Car
+    {
+        private const float k_MaxBatteryHours = 4.2f;
 
+        public ElectricCar(string i_LicenseNumber, string i_ModelName)
+            : base(i_ModelName, i_LicenseNumber, new ElectricBattery(k_MaxBatteryHours))
+        {
+        }
     }
 }
