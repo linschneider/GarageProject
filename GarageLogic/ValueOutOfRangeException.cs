@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -11,8 +7,7 @@ namespace Ex03.GarageLogic
         private readonly float r_MinValue;
         private readonly float r_MaxValue;
 
-        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue)
-            : base(string.Format("Value must be between {0} and {1}.", i_MinValue, i_MaxValue))
+        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue) : base(string.Format("Value must be between {0} and {1}.", i_MinValue, i_MaxValue))
         {
             r_MinValue = i_MinValue;
             r_MaxValue = i_MaxValue;

@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
     public class Motorcycle : Vehicle
     {
         private string m_LicenseType;
-        private float m_EngineCapacity;
+        private int m_EngineCapacity;
 
         public Motorcycle(string i_VehicleModel, string i_LicenseNumber, EnergySource i_EnergySource)
             : base(i_VehicleModel, i_LicenseNumber, i_EnergySource)
@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
 
             for (int i = 0; i < m_Wheels.Length; i++)
             {
-                m_Wheels[i] = new Wheel(31f);
+                m_Wheels[i] = new Wheel(29f);
             }
         }
 
@@ -42,11 +42,11 @@ namespace Ex03.GarageLogic
 
         private bool isValidEngineCapacity(string i_EngineCapacity)
         {
-            bool valid = float.TryParse(i_EngineCapacity, out float engineCapacity);
+            bool valid = int.TryParse(i_EngineCapacity, out int engineCapacity);
 
             if (valid)
             {
-                valid = engineCapacity > 0f;
+                valid = engineCapacity > 0;
             }
 
             return valid;
@@ -59,18 +59,17 @@ namespace Ex03.GarageLogic
                 return 0;
             }
 
-            short errorIndex = -1;
-
             if (!isValidLicenseType(i_UniqueData[0]))
             {
-                errorIndex = 0;
-            }
-            else if (!isValidEngineCapacity(i_UniqueData[1]))
-            {
-                errorIndex = 1;
+                return 0;
             }
 
-            return errorIndex;
+            if (!isValidEngineCapacity(i_UniqueData[1]))
+            {
+                return 1;
+            }
+
+            return -1;
         }
 
         public override void SetUniqueData(string[] i_UniqueData)
@@ -81,7 +80,7 @@ namespace Ex03.GarageLogic
             }
 
             m_LicenseType = i_UniqueData[0].ToLower();
-            m_EngineCapacity = Convert.ToSingle(i_UniqueData[1]);
+            m_EngineCapacity = Convert.ToInt32(i_UniqueData[1]);
         }
 
         public override string[] GetUniqueData
@@ -91,7 +90,7 @@ namespace Ex03.GarageLogic
                 string[] uniqueDataMembers =
                 {
                     "License type (A1/A2/AA/B): ",
-                    "Engine Capacity: "
+                    "Engine Capacity (int): "
                 };
 
                 return uniqueDataMembers;
@@ -109,6 +108,4 @@ namespace Ex03.GarageLogic
         }
     }
 }
-
-
 

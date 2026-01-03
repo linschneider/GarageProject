@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
     public class Truck : Vehicle
     {
-        private bool m_HasCoolingUnit;
+        private bool m_IsCarryingDangerousMaterials;
         private float m_TrunkCapacity;
 
         public Truck(string i_VehicleModel, string i_LicenseNumber, EnergySource i_EnergySource)
             : base(i_VehicleModel, i_LicenseNumber, i_EnergySource)
         {
-            m_Wheels = new Wheel[16];
+            m_Wheels = new Wheel[12];
 
             for (int i = 0; i < m_Wheels.Length; i++)
             {
-                m_Wheels[i] = new Wheel(24f);
+                m_Wheels[i] = new Wheel(26f);
             }
         }
 
@@ -61,18 +57,17 @@ namespace Ex03.GarageLogic
                 return 0;
             }
 
-            short errorIndex = -1;
-
             if (!isValidAnswer(i_UniqueData[0]))
             {
-                errorIndex = 0;
-            }
-            else if (!isValidCapacity(i_UniqueData[1]))
-            {
-                errorIndex = 1;
+                return 0;
             }
 
-            return errorIndex;
+            if (!isValidCapacity(i_UniqueData[1]))
+            {
+                return 1;
+            }
+
+            return -1;
         }
 
         public override void SetUniqueData(string[] i_UniqueData)
@@ -82,7 +77,7 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("Invalid unique data.");
             }
 
-            m_HasCoolingUnit = i_UniqueData[0].ToLower() == "yes";
+            m_IsCarryingDangerousMaterials = i_UniqueData[0].ToLower() == "yes";
             m_TrunkCapacity = Convert.ToSingle(i_UniqueData[1]);
         }
 
@@ -91,8 +86,8 @@ namespace Ex03.GarageLogic
             string[] uniqueDataMembers =
             {
                 string.Format(
-                    "Cooling unit: {0}.{2}Trunk capacity: {1}.",
-                    m_HasCoolingUnit,
+                    "Carrying dangerous materials: {0}.{2}Trunk capacity: {1}.",
+                    m_IsCarryingDangerousMaterials,
                     m_TrunkCapacity,
                     Environment.NewLine)
             };
@@ -106,7 +101,7 @@ namespace Ex03.GarageLogic
             {
                 string[] uniqueDataMembers =
                 {
-                    "Cooling Unit (YES/NO): ",
+                    "Carrying dangerous materials (YES/NO): ",
                     "Trunk Capacity: "
                 };
 
@@ -115,7 +110,6 @@ namespace Ex03.GarageLogic
         }
     }
 }
-
 
 
 

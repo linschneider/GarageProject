@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System;
+
 namespace Ex03.GarageLogic
 {
     public class Car : Vehicle
@@ -14,11 +16,11 @@ namespace Ex03.GarageLogic
         public Car(string i_VehicleModel, string i_LicenseNumber, EnergySource i_EnergySource)
             : base(i_VehicleModel, i_LicenseNumber, i_EnergySource)
         {
-            m_Wheels = new Wheel[4];
+            m_Wheels = new Wheel[5];
 
             for (int i = 0; i < m_Wheels.Length; i++)
             {
-                m_Wheels[i] = new Wheel(29f);
+                m_Wheels[i] = new Wheel(33f);
             }
         }
 
@@ -33,10 +35,10 @@ namespace Ex03.GarageLogic
 
             switch (i_Color.ToLower())
             {
-                case "red":
-                case "white":
                 case "blue":
                 case "green":
+                case "white":
+                case "black":
                     validColor = true;
                     break;
             }
@@ -50,7 +52,7 @@ namespace Ex03.GarageLogic
 
             if (valid)
             {
-                valid = (doorCount >= 2 && doorCount <= 5);
+                valid = doorCount >= 2 && doorCount <= 5;
             }
 
             return valid;
@@ -63,18 +65,17 @@ namespace Ex03.GarageLogic
                 return 0;
             }
 
-            short errorIndex = -1;
-
             if (!isValidColor(i_UniqueData[0]))
             {
-                errorIndex = 0;
-            }
-            else if (!isValidDoorCount(i_UniqueData[1]))
-            {
-                errorIndex = 1;
+                return 0;
             }
 
-            return errorIndex;
+            if (!isValidDoorCount(i_UniqueData[1]))
+            {
+                return 1;
+            }
+
+            return -1;
         }
 
         public override void SetUniqueData(string[] i_UniqueData)
@@ -92,13 +93,13 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                string[] UniqueDataMembers =
+                string[] uniqueDataMembers =
                 {
-                    "Car color (red/white/blue/green): ",
+                    "Car color (blue/green/white/black): ",
                     "Number of Doors (2/3/4/5): "
                 };
 
-                return UniqueDataMembers;
+                return uniqueDataMembers;
             }
         }
 
@@ -113,5 +114,6 @@ namespace Ex03.GarageLogic
         }
     }
 }
+
 
 
